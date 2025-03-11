@@ -19,5 +19,84 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>5.16.0</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>maven</id>
+            <properties>
+                <maven.compiler.source>19</maven.compiler.source>
+                <maven.compiler.target>19</maven.compiler.target>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.mysql</groupId>
+                    <artifactId>mysql-connector-j</artifactId>
+                    <version>9.2.0</version>
+                </dependency>
+            </dependencies>
+            <repositories>
+                <repository>
+                    <id>maven-repository</id>
+                    <url>https://mvnrepository.com/</url>
+                </repository>
+            </repositories>
+            <activation>
+                <property>
+                    <name>activate.maven.profile</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes></excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>spring</id>
+            <properties>
+                <maven.compiler.source>17</maven.compiler.source>
+                <maven.compiler.target>17</maven.compiler.target>
+            </properties>
+            <dependencies>
+
+            </dependencies>
+            <repositories>
+                <repository>
+                    <id>spring-repository</id>
+                    <url>https://repo.spring.io/ui/packages</url>
+                </repository>
+            </repositories>
+            <activation>
+                <file>
+                    <exists>path/to/file.txt</exists>
+                </file>
+            </activation>
+            <build>
+
+            </build>
+        </profile>
+    </profiles>
 
 </project>
